@@ -2,7 +2,7 @@
 #Bug Hunting methodology
 
 -----------------------------------------------------------------------------
-    # subfinder -d example.com -all  -recursive > subdomain.txt
+    # subfinder -d example.com -all  -recursive > subdomain.txt # 
 
     # assetfinder test.com | anew >> subdomain.txt
 
