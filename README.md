@@ -1,5 +1,5 @@
-# methodologyI
-Bug Hunting methodology
+
+                      #  Bug Hunting methodology
 
 -----------------------------------------------------------------------------
 subfinder -d example.com -all  -recursive > subdomain.txt
