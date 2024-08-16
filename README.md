@@ -82,7 +82,7 @@
 -
 
      python3 /opt/Corsy/corsy.py -i subdomains_alive.txt -t 10 --headers "User-Agent: GoogleBot\nCookie: SESSION=Hacked"
-~Cors Poc Exploit : https://github.com/hunthack3r/PoCors.git ~
+~Cors Poc Exploit : ```https://github.com/hunthack3r/PoCors.git```
 
 ## Looking for Hidden parameters :-
 
@@ -196,9 +196,13 @@ ________________________________________________________________________________
 __________________________________________________________________________________________________
 
 
-
-######## Testing for xss and sqli at the same time >_< ##############
-
+## Extra 
+## Testing for xss and sqli at the same time >_< 
+(Please Install Katana into your machine to access the full potential of this tool)
+1. Clone the repository: ``` git clone https://github.com/faiyazahmad07/xss_vibes```
+2. Install the requirements file: ```pip3 install -r requirements```
+3. Run the main.py file
+__________________________________________________________________________________________________
 
      cat subdomains.txt | waybackurls | uro | grep "\?" | httpx -silent > param.txt
 -
