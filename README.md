@@ -301,13 +301,16 @@ ________________________________________________________________________________
 
 Scanning target domain with community-curated nuclei templates :-
 
-nuclei -u https://example.com
+     nuclei -u https://example.com
+-
 
-nuclei -list urls.txt -t /fuzzing-templates
+     nuclei -list urls.txt -t /fuzzing-templates
+-
 
-nuclei -list live-subs.txt -t /nuclei-templates/vulnerabilities -t /nuclei-templates/cves -t /nuclei-templates/exposures -t /nuclei-templates/sqli.yaml
+     nuclei -list live-subs.txt -t /nuclei-templates/vulnerabilities -t /nuclei-templates/cves -t /nuclei-templates/exposures -t /nuclei-templates/sqli.yaml
+-
 
-nuclei -u https://example.com -w workflows/
+     nuclei -u https://example.com -w workflows/
 __________________________________________________________________________________________________
 
 
@@ -315,9 +318,10 @@ ________________________________________________________________________________
 
 Open Redirection OneLiner :-
 
-waybackurls tesorion.nl | grep -a -i \=http | qsreplace 'evil.com' | while read host do;do curl -s -L $host -I| grep "evil.com" && echo "$host \033[0;31mVulnerable\n" ;done
+     waybackurls tesorion.nl | grep -a -i \=http | qsreplace 'evil.com' | while read host do;do curl -s -L $host -I| grep "evil.com" && echo "$host \033[0;31mVulnerable\n" ;done
+-
 
-httpx -l i.txt -path "///evil.com" -status-code -mc 302
+     httpx -l i.txt -path "///evil.com" -status-code -mc 302
 
 _________________________________________________________________________________
 
@@ -328,33 +332,35 @@ ________________________________________________________________________________
 
 Basic Usage:-
 
-waymore -i example.com -mode U -oU result.txt
+     waymore -i example.com -mode U -oU result.txt
+-
 
-
-cat result.txt | sort -u > sorted.txt
+     cat result.txt | sort -u > sorted.txt
 
 
 #Getting live urls :-
 
-cat sorted.txt | httpx -mc 200 -o live-urls.txt
+     cat sorted.txt | httpx -mc 200 -o live-urls.txt
 
 
 #Getting parameters from live urls :-
 
-cat live-urls.txt | grep "=" > live-parameters.txt
+     cat live-urls.txt | grep "=" > live-parameters.txt
 
 (live-parameters.txt) Ready for testing.
 
 
 waymore tool link :-
-https://github.com/xnl-h4ck3r/waymore
+
+     https://github.com/xnl-h4ck3r/waymore
 __________________________________________________________________________________________________
 
 ## virtual Host scanner :-
 
-- git clone https://github.com/jobertabma/virtual-host-discovery.git
+      git clone https://github.com/jobertabma/virtual-host-discovery.git
+-
 
-- ruby scan.rb --ip=151.101.194.133 --host=cisco.com
+      ruby scan.rb --ip=151.101.194.133 --host=cisco.com
 
 __________________________________________________________________________________________________
 
@@ -362,17 +368,18 @@ ________________________________________________________________________________
 ## JS Hunting :-
 
 
-1- ﻿echo target.com | gau | grep ".js" | httpx -content-type | grep 'application/javascript'" | awk '{print $1}' | nuclei -t /root/nuclei-templates/exposures/ -silent > secrets.txt
+     ﻿echo target.com | gau | grep ".js" | httpx -content-type | grep 'application/javascript'" | awk '{print $1}' | nuclei -t /root/nuclei-templates/exposures/ -silent > secrets.txt
+-
 
-
-2- echo uber.com | gau | grep '\.js$' | httpx -status-code -mc 200 -content-type | grep 'application/javascript'
+     echo uber.com | gau | grep '\.js$' | httpx -status-code -mc 200 -content-type | grep 'application/javascript'
 
 
 3- JSS-Scanner :-
 
-- echo "invisionapp.com" | waybackurls | grep -iE '\.js'|grep -ivE '\.json'|sort -u  > j.txt
+     echo "invisionapp.com" | waybackurls | grep -iE '\.js'|grep -ivE '\.json'|sort -u  > j.txt
+-
 
-- python3 JSScanner.py
+     python3 JSScanner.py
 
 
 __________________________________________________________________________________________________
@@ -381,21 +388,27 @@ ________________________________________________________________________________
 ## Shodan Dorking :-
 
 
-- ssl.cert.subject.CN:"gevme.com*" 200
+     ssl.cert.subject.CN:"gevme.com*" 200
+-
 
-- ssl.cert.subject.CN:"*.target.com" "230 login successful" port:"21"
+     ssl.cert.subject.CN:"*.target.com" "230 login successful" port:"21"
+-
 
-- ssl.cert.subject.CN:"*.target.com"+200 http.title:"Admin"
+     ssl.cert.subject.CN:"*.target.com"+200 http.title:"Admin"
+-
 
-- Set-Cookie:"mongo-express=" "200 OK"
+     Set-Cookie:"mongo-express=" "200 OK"
+-
 
-- ssl:"invisionapp.com" http.title:"index of / "
+     ssl:"invisionapp.com" http.title:"index of / "
+-
 
-- ssl:"arubanetworks.com" 200 http.title:"dashboard"
+     ssl:"arubanetworks.com" 200 http.title:"dashboard"
+-
 
-- net:192.168.43/24, 192.168.40/24
+     net:192.168.43/24, 192.168.40/24
 
-- AEM Login panel :-  git clone https://github.com/0ang3el/aem-hacker.git
+AEM Login panel :-  git clone https://github.com/0ang3el/aem-hacker.git
 
 User:anonymous
 Pass:anonymous
@@ -403,28 +416,35 @@ Pass:anonymous
 
 ## Collect all interisting ips from Shodan and save them in ips.txt
 
-- cat ips.txt | httpx > live-ips.txt
+     cat ips.txt | httpx > live-ips.txt
+-
 
-- cat live_ips.txt | dirsearch --stdin
+     cat live_ips.txt | dirsearch --stdin
 
 __________________________________________________________________________________________________
 
 
 ## Google dorking :-
 
-- site:*.gapinc.com inurl:”*admin | login” | inurl:.php | .asp
+     site:*.gapinc.com inurl:”*admin | login” | inurl:.php | .asp
+-
 
-- intext:"index of /.git"
+     intext:"index of /.git"
+-
 
-- site:*.*.edu intext:"sql syntax near" | intext:"syntax error has occurred" | intext:"incorrect syntax near" | intext:"unexpected end of SQL command" | intext:"Warning: mysql_connect()" | intext:"Warning: mysql_query()" | intext:"Warning: pg_connect()"
+     site:*.*.edu intext:"sql syntax near" | intext:"syntax error has occurred" | intext:"incorrect syntax near" | intext:"unexpected end of SQL command" | intext:"Warning: mysql_connect()" | intext:"Warning: mysql_query()" | intext:"Warning: pg_connect()"
+-
 
+     site:*.mil link:www.facebook.com | link:www.instagram.com | link:www.twitter.com | link:www.youtube.com | link:www.telegram.com |
+-
 
-- site:*.mil link:www.facebook.com | link:www.instagram.com | link:www.twitter.com | link:www.youtube.com | link:www.telegram.com |
-link:www.hackerone.com | link:www.slack.com | link:www.github.com
+     link:www.hackerone.com | link:www.slack.com | link:www.github.com
+-
 
-- inurl:/geoserver/web/ (intext:2.21.4 | intext:2.22.2)
+     inurl:/geoserver/web/ (intext:2.21.4 | intext:2.22.2)
+-
 
-- inurl:/geoserver/ows?service=wfs
+     inurl:/geoserver/ows?service=wfs
 
 
 __________________________________________________________________________________________________
@@ -434,11 +454,13 @@ ________________________________________________________________________________
 
 - git-Grabber :-
 
-- python3 gitGraber.py -k wordlists/keywords.txt -q "yahoo" -s
+      python3 gitGraber.py -k wordlists/keywords.txt -q "yahoo" -s
+-
 
-- python3 gitGraber.py -k wordlists/keywords.txt -q \"yahoo.com\" -s
+     python3 gitGraber.py -k wordlists/keywords.txt -q \"yahoo.com\" -s
+-
 
-- python3 gitGraber.py -k keywordsfile.txt -q \"yahoo.com\" -s -w mywordlist.txt
+     python3 gitGraber.py -k keywordsfile.txt -q \"yahoo.com\" -s -w mywordlist.txt
 
 
 - GitHound
@@ -447,26 +469,33 @@ ________________________________________________________________________________
 
 ## Resources And Tools :-
 
-https://github.com/orwagodfather/x
+     https://github.com/orwagodfather/x
+-
 
-https://github.com/SAPT01/HBSQLI
+     https://github.com/SAPT01/HBSQLI
+-
 
-python3 hbsqli.py -l y.txt -p payloads.txt -H headers.txt -v
+     python3 hbsqli.py -l y.txt -p payloads.txt -H headers.txt -v
+-
 
-python3 hbsqli.py -u "https://target.com" -p payloads.txt -H headers.txt -v
+     python3 hbsqli.py -u "https://target.com" -p payloads.txt -H headers.txt -v
+-
 
-https://github.com/thecybertix/One-Liner-Collections
+     https://github.com/thecybertix/One-Liner-Collections
+-
 
-https://github.com/projectdiscovery/fuzzing-templates
+     https://github.com/projectdiscovery/fuzzing-templates
+-
 
-https://github.com/0xKayala/NucleiFuzzer
+     https://github.com/0xKayala/NucleiFuzzer
+-
 
-https://wpscan.com/vulnerability/825eccf9-f351-4a5b-b238-9969141b94fa
+     https://wpscan.com/vulnerability/825eccf9-f351-4a5b-b238-9969141b94fa
 
 _________________________________________________________________________________
 
 
-####### 📌 Complete Bug Bounty tool List 📌
+## 📌 Complete Bug Bounty tool List 📌
 
 dnscan https://github.com/rbsec/dnscan
 
