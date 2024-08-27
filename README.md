@@ -45,6 +45,10 @@
 
 -
 
+     find . -type f -exec cat {} + 2>/dev/null |  gf lfi | nuclei  -t /nuclei-templates/http/vulnerabilities/generic/generic-linux-lfi.yaml -c 30
+
+-
+
      nuclei -t /nuclei-templates/takeovers/ -l live-subs.txt
 
 -
