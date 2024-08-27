@@ -49,6 +49,10 @@
 
 -
 
+     nuclei -u https://example.com -severity medium,high,critical
+
+-
+
      nuclei -t /nuclei-templates/takeovers/ -l live-subs.txt
 
 -
