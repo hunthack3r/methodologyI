@@ -122,7 +122,17 @@
 
      sqlmap -m param.txt --batch --random-agent --level 1 | tee sqlmap.txt
 -
-
+_______________________________
+```
+nuclei -u https://example.com -severity medium,high,critical
+```
+```
+find . -type f -exec cat {} + 2>/dev/null | sort | uniq | anew | uro | httpx-toolkit -mc 200  | nuclei  -t /nuclei-templates/ --severity medium,high,critical
+```
+```
+find . -type f -exec cat {} + 2>/dev/null |  gf lfi | httpx-toolkit -mc 200 | nuclei  -t /nuclei-templates/http/vulnerabilities/generic/generic-linux-lfi.yaml -c 30
+```
+____________________________
      nuclei -list subdomains_alive.txt -t /Priv8-Nuclei/cors
 -
 
