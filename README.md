@@ -611,7 +611,7 @@ Amass https://github.com/OWASP/Amass
 
 _________________________________________________________________________________
 NUCLEI TEMPLATES:
-
+```
 https://github.com/0x71rex/0-fuzzing-templates
 https://github.com/0xPugazh/my-nuclei-templates
 https://github.com/0xc4sper0/Nuclei-templates
@@ -717,7 +717,6 @@ https://github.com/yarovit-developer/nuclei-templates
 https://github.com/yavolo/nuclei-templates
 https://github.com/z3bd/nuclei-templates
 https://github.com/zerbaliy3v/custom-nuclei-templates
-
-
+```
 
 
